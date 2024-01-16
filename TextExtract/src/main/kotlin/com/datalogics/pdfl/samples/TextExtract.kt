@@ -9,7 +9,7 @@ import java.io.OutputStreamWriter
 * This program pulls text from a PDF file and exports it to a text file (TXT).
 * It will open a PDF file called Constitution.PDF and create an output file called
 * TextExtract-untagged-out.txt. The export file includes page number references, and
-* the text is produced using standard Times Roman encoding. The program is also written
+* the text is produced using standard Roman encoding. The program is also written
 * to include a provision for working with tagged documents, and determines if the original
 * PDF file is tagged or untagged. Tagging is used to make PDF files accessible
 * to the blind or to people with vision problems.
@@ -28,7 +28,7 @@ fun main(args: Array<String>) {
 
         // This is a tagged PDF.
         // var sInput: String = Library.getResourceDirectory() + "Sample_Input/pdf_intro.pdf"
-        if(args.isNotEmpty()){
+        if (args.isNotEmpty()) {
             sInput = args[0]
         }
         println("Reading $sInput")
@@ -46,9 +46,9 @@ fun main(args: Array<String>) {
         val markInfoDict: PDFDict? = doc.root.get("MarkInfo") as? PDFDict
         val markedEntry: PDFBoolean? = markInfoDict?.get("Marked") as? PDFBoolean
 
-        if(markInfoDict != null){
-            if(markedEntry != null){
-                if(markedEntry.value){
+        if (markInfoDict != null) {
+            if (markedEntry != null) {
+                if (markedEntry.value) {
                     docIsTagged = true
                 }
             }
@@ -80,30 +80,32 @@ fun main(args: Array<String>) {
             extractTextUntagged(doc, wordFinder)
 
         doc.close()
-    }finally {
+    } finally {
         lib.delete()
     }
 }
 
-fun extractTextUntagged(doc:Document, wordFinder:WordFinder) {
+fun extractTextUntagged(doc: Document, wordFinder: WordFinder) {
     val nPages = doc.numPages
-    var pageWords : List<Word>?
+    var pageWords: List<Word>?
 
     val logFile = FileOutputStream("TextExtract-untagged-out.txt")
     println("Writing TextExtract-untagged-out.txt")
     val logWriter = OutputStreamWriter(logFile, "UTF-8")
 
-    for (pageIndex in 0 until nPages ){
+    for (pageIndex in 0 until nPages) {
         pageWords = wordFinder.getWordList(pageIndex)
         var textToExtract = ""
 
-        for(wordNum in pageWords.indices){
+        for (wordNum in pageWords.indices) {
             val wInfo = pageWords[wordNum]
             val s = wInfo.text
 
             // Check for hyphenated words that break across a line.
-            if (wInfo.attributes.contains(WordAttributeFlags.HAS_SOFT_HYPHEN) && wInfo.attributes.contains(WordAttributeFlags.LAST_WORD_ON_LINE))
-            {
+            if (wInfo.attributes.contains(WordAttributeFlags.HAS_SOFT_HYPHEN) && wInfo.attributes.contains(
+                    WordAttributeFlags.LAST_WORD_ON_LINE
+                )
+            ) {
                 // Remove the hyphen and combine the two parts of the word before adding to the extracted text.
                 // Note that we pass in the Unicode character for soft hyphen as well as the regular hyphen.
                 //
@@ -116,10 +118,10 @@ fun extractTextUntagged(doc:Document, wordFinder:WordFinder) {
                 // Note we remove ascii hyphen, Unicode soft hyphen(\u00ad) and Unicode hyphen(0x2010)
                 val splitstrs = s.split("-|\u00ad|0x2010".toRegex())
 
-                for(index in splitstrs.indices){
+                for (index in splitstrs.indices) {
                     textToExtract += splitstrs[index]
                 }
-            }else{
+            } else {
                 textToExtract += s
             }
 
@@ -129,21 +131,20 @@ fun extractTextUntagged(doc:Document, wordFinder:WordFinder) {
             // but are not separated by a space.  Here, it's used in conjunction with
             // WordAttributes.AdjacentToSpace to determine where to insert spaces when
             // post-processing WordFinder results.
-            if (wInfo.attributes.contains(WordAttributeFlags.ADJACENT_TO_SPACE) || wInfo.isLastWordInRegion)
-            {
+            if (wInfo.attributes.contains(WordAttributeFlags.ADJACENT_TO_SPACE) || wInfo.isLastWordInRegion) {
                 textToExtract += " "
             }
             // Check for a line break and add one if necessary
             if (wInfo.attributes.contains(WordAttributeFlags.LAST_WORD_ON_LINE))
                 textToExtract += "\n"
         }
-        val pageNum = "<page ${pageIndex+1}>\n"
+        val pageNum = "<page ${pageIndex + 1}>\n"
         logWriter.write(pageNum, 0, pageNum.length)
         logWriter.write(textToExtract, 0, textToExtract.length)
         logWriter.write("\n")
 
         // Release requested WordList
-        for (wordnum in pageWords.indices){
+        for (wordnum in pageWords.indices) {
             pageWords[wordnum].delete()
         }
     }
@@ -151,20 +152,20 @@ fun extractTextUntagged(doc:Document, wordFinder:WordFinder) {
     logWriter.close()
 }
 
-fun extractTextTagged(doc: Document, wordFinder: WordFinder){
+fun extractTextTagged(doc: Document, wordFinder: WordFinder) {
     val nPages = doc.numPages
-    var pageWords : List<Word>
+    var pageWords: List<Word>
 
     val logFile = FileOutputStream("TextExtract-tagged-out.txt")
     println("Writing TextExtract-tagged-out.txt")
     val logWriter = OutputStreamWriter(logFile, "UTF-8")
 
-    for(pageIndex in 0 until nPages){
+    for (pageIndex in 0 until nPages) {
         pageWords = wordFinder.getWordList(pageIndex)
 
         var textToExtract = ""
 
-        for(wordNum in pageWords.indices){
+        for (wordNum in pageWords.indices) {
             val wInfo = pageWords[wordNum]
             val s = wInfo.text
 
@@ -173,17 +174,15 @@ fun extractTextTagged(doc: Document, wordFinder: WordFinder){
             //
             // Note that we're not checking for the LAST_WORD_ON_LINE flag, unlike untagged PDF.  For Tagged PDF,
             // words are not flagged as being the last on the line if they are not at the end of a sentence.
-            if (wInfo.attributes.contains(WordAttributeFlags.HAS_SOFT_HYPHEN))
-            {
+            if (wInfo.attributes.contains(WordAttributeFlags.HAS_SOFT_HYPHEN)) {
                 // Remove the hyphen and combine the two parts of the word before adding to the extracted text.
                 // Note that we pass in the Unicode character for soft hyphen(\u00ad) and Unicode hyphen(0x2010).
                 val splitstrs = s.split("\u00ad|0x2010".toRegex())
 
-                for(index in splitstrs.indices) {
+                for (index in splitstrs.indices) {
                     textToExtract += splitstrs[index]
                 }
-            }
-            else{
+            } else {
                 textToExtract += s
             }
 
@@ -193,8 +192,7 @@ fun extractTextTagged(doc: Document, wordFinder: WordFinder){
             // but are not separated by a space.  Here, it's used in conjunction with
             // WordAttributes.AdjacentToSpace to determine where to insert spaces when
             // post-processing WordFinder results.
-            if (wInfo.attributes.contains(WordAttributeFlags.ADJACENT_TO_SPACE) || wInfo.isLastWordInRegion)
-            {
+            if (wInfo.attributes.contains(WordAttributeFlags.ADJACENT_TO_SPACE) || wInfo.isLastWordInRegion) {
                 textToExtract += " "
             }
 
@@ -203,7 +201,7 @@ fun extractTextTagged(doc: Document, wordFinder: WordFinder){
                 textToExtract += "\n"
         }
 
-        val pageNum = "<page ${pageIndex+1}>\n"
+        val pageNum = "<page ${pageIndex + 1}>\n"
         logWriter.write(pageNum, 0, pageNum.length)
         logWriter.write(textToExtract, 0, textToExtract.length)
         logWriter.write("\n")
