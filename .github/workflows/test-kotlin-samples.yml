@@ -1,0 +1,25 @@
+name: test-kotlin-samples-with-java-maven-package
+
+on:
+    pull_request:
+    push:
+        branches: [ develop ]
+
+env:
+    JAVA_VERSION: '11'
+
+jobs:
+    build-and-run-samples:
+        runs-on: ${{ matrix.os }}
+        strategy:
+          matrix:
+            os: [windows-latest, ubuntu-latest, macos-13]
+            dir: ['TextExtract']
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+            - name: Setup Java
+              uses: actions/setup-java@v2
+              with:
+                java-version: ${{ env.JAVA_VERSION }}
+                distribution: 'adopt'
