@@ -23,3 +23,6 @@ jobs:
               with:
                 java-version: ${{ env.JAVA_VERSION }}
                 distribution: 'adopt'
+            - name: Clean target folder
+              working-directory: ${{ matrix.dir }}
+              run: mvn clean
