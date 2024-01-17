@@ -25,7 +25,7 @@ jobs:
                 distribution: 'adopt'
             - name: Clean target folder
               working-directory: ${{ matrix.dir }}
-              run: mvn clean
+              run: mvn -e clean
             - name: Unpack APDFL from Maven Central
               working-directory: ${{ matrix.dir }}
-              run: mvn process-resources
+              run: mvn -e process-resources
