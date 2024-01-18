@@ -13,7 +13,7 @@ jobs:
         runs-on: ${{ matrix.os }}
         strategy:
           matrix:
-            os: [windows-latest, ubuntu-latest, macos-13]
+            os: [windows-latest, ubuntu-latest]
             dir: ['TextExtract']
         steps:
             - name: Checkout
