@@ -29,6 +29,9 @@ jobs:
             - name: Unpack APDFL from Maven Central
               working-directory: ${{ matrix.dir }}
               run: mvn -e process-resources
-            - name: Compile and assemble sample JAR file with dependencies
+            - name: Compile and assemble sample JAR files with dependencies
               working-directory: ${{ matrix.dir }}
               run: mvn -e package
+            - name: Run samples
+              working-directory: ${{ matrix.dir }}
+              run: java -Djava.library.path=./target/lib -Dfile.encoding=UTF-8 -jar target/${{ matrix.dir }}-1.0-SNAPSHOT-jar-with-dependencies.jar
