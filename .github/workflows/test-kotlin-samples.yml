@@ -11,6 +11,9 @@ env:
 jobs:
     build-and-run-samples:
         runs-on: ${{ matrix.os }}
+        defaults:
+          run:
+            shell: bash
         strategy:
           matrix:
             os: [windows-latest, ubuntu-latest]
