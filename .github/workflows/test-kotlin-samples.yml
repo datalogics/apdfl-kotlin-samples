@@ -37,7 +37,11 @@ jobs:
               run: mvn -e package
             - name: Run samples
               working-directory: ${{ matrix.dir }}
-              run: java -Djava.library.path=./target/lib -Dfile.encoding=UTF-8 -jar target/${{ matrix.dir }}-1.0-SNAPSHOT-jar-with-dependencies.jar
-            - name: List files
-              run: |
-                ls ${{ github.workspace }}
+              run:  |
+                  if [ "$RUNNER_OS" == "Windows" ]; then
+                      set PATH=%PATH%;${{ github.workspace }}/${{ matrix.dir }}/target/lib
+                      echo %PATH%
+                      java -Djava.library.path=%PATH% -Dfile.encoding=UTF-8 -jar target/${{ matrix.dir }}-1.0-SNAPSHOT-jar-with-dependencies.jar
+                  elif [ "$RUNNER_OS" == "Linux" ]; then
+                      java -Djava.library.path=./target/lib -Dfile.encoding=UTF-8 -jar target/${{ matrix.dir }}-1.0-SNAPSHOT-jar-with-dependencies.jar
+                  fi
