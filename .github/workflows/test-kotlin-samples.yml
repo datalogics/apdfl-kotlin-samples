@@ -38,3 +38,6 @@ jobs:
             - name: Run samples
               working-directory: ${{ matrix.dir }}
               run: java -Djava.library.path=./target/lib -Dfile.encoding=UTF-8 -jar target/${{ matrix.dir }}-1.0-SNAPSHOT-jar-with-dependencies.jar
+            - name: List files
+              run: |
+                ls ${{ github.workspace }}
