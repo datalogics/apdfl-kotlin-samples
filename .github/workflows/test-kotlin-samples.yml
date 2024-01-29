@@ -35,11 +35,16 @@ jobs:
             - name: Compile and assemble sample JAR files with dependencies
               working-directory: ${{ matrix.dir }}
               run: mvn -e package
-            - name: Run samples
+            - name: Set up Windows system PATH
               working-directory: ${{ matrix.dir }}
               run:  |
                   if [ "$RUNNER_OS" == "Windows" ]; then
                       echo "${{ github.workspace }}\${{ matrix.dir }}\target\lib" >> $GITHUB_PATH
+                  fi
+            - name: Run samples
+              working-directory: ${{ matrix.dir }}
+              run:  |
+                  if [ "$RUNNER_OS" == "Windows" ]; then
                       echo "$PATH"
                       java -Djava.library.path=$PATH -Dfile.encoding=UTF-8 -jar target/${{ matrix.dir }}-1.0-SNAPSHOT-jar-with-dependencies.jar
                   elif [ "$RUNNER_OS" == "Linux" ]; then
