@@ -56,6 +56,6 @@ jobs:
             - name: Save artifacts
               uses: actions/upload-artifact@v4
               with:
-                name: sample-output
+                name: sample-output-${{ runner.os }}
                 path: |
                   ${{matrix.dir}}\*.txt
