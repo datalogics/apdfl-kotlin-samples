@@ -41,7 +41,7 @@ jobs:
                   if [ "$RUNNER_OS" == "Windows" ]; then
                       echo "${{ github.workspace }}\${{ matrix.dir }}\target\lib" >> $GITHUB_PATH
                       echo $GITHUB_PATH
-                      java -Djava.library.path=%PATH% -Dfile.encoding=UTF-8 -jar target/${{ matrix.dir }}-1.0-SNAPSHOT-jar-with-dependencies.jar
+                      java -Djava.library.path=$GITHUB_PATH -Dfile.encoding=UTF-8 -jar target/${{ matrix.dir }}-1.0-SNAPSHOT-jar-with-dependencies.jar
                   elif [ "$RUNNER_OS" == "Linux" ]; then
                       java -Djava.library.path=./target/lib -Dfile.encoding=UTF-8 -jar target/${{ matrix.dir }}-1.0-SNAPSHOT-jar-with-dependencies.jar
                   fi
