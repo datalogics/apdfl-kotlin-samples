@@ -58,4 +58,4 @@ jobs:
               with:
                 name: sample-output-${{ runner.os }}
                 path: |
-                  ${{matrix.dir}}\*.txt
+                  ${{matrix.dir}}/*.txt
