@@ -39,10 +39,6 @@ jobs:
               working-directory: ${{ matrix.dir }}
               run:  |
                   if [ "$RUNNER_OS" == "Windows" ]; then
-                      echo "Printing github workspace..."
-                      echo "${{ github.workspace }}"
-                      echo "Printing matrix.dir..."
-                      echo "${{ matrix.dir }}"
                       echo "${{ github.workspace }}\${{ matrix.dir }}\target\lib" >> $GITHUB_PATH
                   fi
             - name: Run samples
@@ -54,3 +50,12 @@ jobs:
                   elif [ "$RUNNER_OS" == "Linux" ]; then
                       java -Djava.library.path=./target/lib -Dfile.encoding=UTF-8 -jar target/${{ matrix.dir }}-1.0-SNAPSHOT-jar-with-dependencies.jar
                   fi
+            - name: List files
+              run: |
+                  ls ${{matrix.dir}}
+            - name: Save artifacts
+              uses: actions/upload-artifact@v4
+              with:
+                name: sample-output
+                path: |
+                  ${{matrix.dir}}\*.txt
