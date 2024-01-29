@@ -39,6 +39,10 @@ jobs:
               working-directory: ${{ matrix.dir }}
               run:  |
                   if [ "$RUNNER_OS" == "Windows" ]; then
+                      echo "Printing github workspace..."
+                      echo "${{ github.workspace }}"
+                      echo "Printing matrix.dir..."
+                      echo "${{ matrix.dir }}"
                       echo "${{ github.workspace }}\${{ matrix.dir }}\target\lib" >> $GITHUB_PATH
                   fi
             - name: Run samples
