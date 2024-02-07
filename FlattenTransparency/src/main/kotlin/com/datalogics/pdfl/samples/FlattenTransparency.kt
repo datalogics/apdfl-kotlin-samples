@@ -12,7 +12,7 @@ import java.util.*
  * appears on the page. The process to flatten a set of transparencies merges them
  * into a single image on the page.
  *
- * Copyright (c) 2007-2024, Datalogics, Inc. All rights reserved.
+ * Copyright (c) 2024, Datalogics, Inc. All rights reserved.
  */
 
 fun main(args: Array<String>) {
