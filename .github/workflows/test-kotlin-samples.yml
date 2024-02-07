@@ -17,7 +17,7 @@ jobs:
         strategy:
           matrix:
             os: [windows-latest, ubuntu-latest]
-            dir: ['TextExtract']
+            dir: ['TextExtract', 'FlattenTransparency']
         steps:
             - name: Checkout
               uses: actions/checkout@v4
@@ -55,6 +55,7 @@ jobs:
             - name: Save artifacts
               uses: actions/upload-artifact@v4
               with:
-                name: sample-output-${{ runner.os }}
+                name: sample-output-${{ runner.os }}-${{matrix.dir}}
                 path: |
                   ${{matrix.dir}}/*.txt
+                  ${{matrix.dir}}/*.pdf
