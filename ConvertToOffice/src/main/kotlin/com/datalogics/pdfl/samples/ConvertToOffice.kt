@@ -8,7 +8,7 @@ import com.datalogics.PDFL.Library
  * This program converts sample PDF documents to Word, Excel, and PowerPoint files.
  *
  * Please note that the Office conversion APIs convertToWord, convertToExcel, and convertToPowerPoint are available on
- * Windows only.
+ * Windows 32/64-bit and Linux 64-bit only.
  *
  * Copyright (c) 2024, Datalogics, Inc. All rights reserved.
  *
