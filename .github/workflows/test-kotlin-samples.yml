@@ -17,7 +17,7 @@ jobs:
         strategy:
           matrix:
             os: [windows-latest, ubuntu-latest]
-            dir: ['TextExtract', 'FlattenTransparency', 'SplitPDF']
+            dir: ['TextExtract', 'FlattenTransparency', 'SplitPDF', 'ConvertToOffice']
         steps:
             - name: Checkout
               uses: actions/checkout@v4
@@ -59,3 +59,6 @@ jobs:
                 path: |
                   ${{matrix.dir}}/*.txt
                   ${{matrix.dir}}/*.pdf
+                  ${{matrix.dir}}/*.docx
+                  ${{matrix.dir}}/*.xlsx
+                  ${{matrix.dir}}/*.pptx
