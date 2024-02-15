@@ -1,4 +1,4 @@
-name: test-kotlin-samples-with-java-maven-package
+name: test-kotlin-samples
 
 on:
     pull_request:
@@ -9,7 +9,7 @@ env:
     JAVA_VERSION: '11'
 
 jobs:
-    build-and-run-samples:
+    run-samples:
         runs-on: ${{ matrix.os }}
         defaults:
           run:
