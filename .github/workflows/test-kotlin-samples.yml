@@ -1,4 +1,4 @@
-name: test-kotlin-samples-with-java-maven-package
+name: test-kotlin-samples
 
 on:
     pull_request:
@@ -9,7 +9,7 @@ env:
     JAVA_VERSION: '11'
 
 jobs:
-    build-and-run-samples:
+    run-samples:
         runs-on: ${{ matrix.os }}
         defaults:
           run:
@@ -17,7 +17,7 @@ jobs:
         strategy:
           matrix:
             os: [windows-latest, ubuntu-latest]
-            dir: ['TextExtract', 'FlattenTransparency', 'SplitPDF', 'ConvertToOffice', 'MergePDF']
+            dir: ['TextExtract', 'FlattenTransparency', 'SplitPDF', 'ConvertToOffice', 'MergePDF', 'ListWords']
         steps:
             - name: Checkout
               uses: actions/checkout@v4
