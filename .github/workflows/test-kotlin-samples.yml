@@ -62,3 +62,4 @@ jobs:
                   ${{matrix.dir}}/*.docx
                   ${{matrix.dir}}/*.xlsx
                   ${{matrix.dir}}/*.pptx
+                  ${{matrix.dir}}/*.json
