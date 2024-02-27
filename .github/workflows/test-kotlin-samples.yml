@@ -17,7 +17,7 @@ jobs:
         strategy:
           matrix:
             os: [windows-latest, ubuntu-latest]
-            dir: ['TextExtract', 'FlattenTransparency', 'SplitPDF', 'ConvertToOffice', 'MergePDF', 'ListWords', 'PDFOptimize', 'PDFAConverter', 'Redactions', 'RasterizePage']
+            dir: ['TextExtract', 'FlattenTransparency', 'SplitPDF', 'ConvertToOffice', 'MergePDF', 'ListWords', 'PDFOptimize', 'PDFAConverter', 'Redactions', 'Watermark', 'RegexTextSearch', 'RegexExtractText', 'RasterizePage']
         steps:
             - name: Checkout
               uses: actions/checkout@v4
@@ -63,3 +63,4 @@ jobs:
                   ${{matrix.dir}}/*.xlsx
                   ${{matrix.dir}}/*.pptx
                   ${{matrix.dir}}/*.jpg
+                  ${{matrix.dir}}/*.json
