@@ -82,7 +82,6 @@
         <dependency>
             <groupId>com.datalogics.pdfl</groupId>
             <artifactId>pdfl</artifactId>
-            <version>18.41.0</version>
             <type>zip</type>
             <classifier>${jni.classifier}</classifier>
         </dependency>
