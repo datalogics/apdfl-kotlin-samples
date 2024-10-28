@@ -31,5 +31,5 @@ Samples can be built and run easily in the *IntelliJ IDEA* IDE.
 
 1. Clone this repository
 2. Select the sample you would like to try
-3. Open the folder containing the sample in the IDE.
+3. Open the folder containing the sample in the IDE
 4. Run the sample by clicking on the **Run** button!
