@@ -34,23 +34,9 @@ def clean_samples(ctx):
 
 @task(pre=[clean_samples])
 def build_samples(ctx):
-    """Builds the APDFL Java Maven samples"""
+    """Builds the APDFL Kotlin samples"""
     for sample in samples_list:
         full_path = os.path.join(os.getcwd(), sample)
-
-        if platform.system() == 'Darwin' and ('ConvertToOffice' in sample or
-                                              'CreateDocFromXPS' in sample or
-                                              'ConvertXFAToAcroForms' in sample
-                                              or 'ExportFormsData' in sample or
-                                              'FlattenForms' in sample or
-                                              'ImportFormsData' in sample):
-            output = ""
-            if ('ConvertToOffice' in sample or 'CreateDocFromXPS' in sample):
-                output = "not available on this OS"
-            else:
-                output = "cannot be run in CI on this OS"
-            print(f'{sample} {output}')
-            continue
 
         with ctx.cd(full_path):
             ctx.run('mvn package')
@@ -70,7 +56,7 @@ def remove_last_path_entry():
     os.environ["PATH"] = new_path
 
 
-def execute_java_sample(target_dir, sample_name, full_path, apdfl_key):
+def execute_kotlin_sample(target_dir, sample_name, full_path, apdfl_key):
     command = str(f'java -Djava.library.path={target_dir} -jar target/{sample_name}-1.0-SNAPSHOT-jar-with-dependencies.jar')
 
     process = subprocess.Popen(command, shell=True, cwd=full_path,
@@ -90,7 +76,7 @@ def execute_java_sample(target_dir, sample_name, full_path, apdfl_key):
 
 @task()
 def run_samples(ctx):
-    """Runs the APDFL Java Maven samples"""
+    """Runs the APDFL Kotlin samples"""
     apdfl_key = os.environ.get("APDFL_KEY")
 
     if apdfl_key is None:
@@ -107,26 +93,8 @@ def run_samples(ctx):
         if platform.system() == 'Windows':
             os.environ["PATH"] += str(target_dir)
 
-        if 'DocToImages' in sample or 'ImageDisplayByteArray' in sample:
-            continue
-        if platform.system() == 'Darwin' and ('ConvertToOffice' in sample or
-                                              'CreateDocFromXPS' in sample or
-                                              'ConvertXFAToAcroForms' in sample
-                                              or 'ExportFormsData' in sample or
-                                              'FlattenForms' in sample or
-                                              'ImportFormsData' in sample):
-            output = ""
-            if ('ConvertToOffice' in sample or 'CreateDocFromXPS' in sample):
-                output = "not available on this OS"
-            else:
-                output = "cannot be run in CI on this OS"
-            print(f'{sample} {output}')
-            continue
-        elif platform.system() == 'Linux' and 'ConvertToOffice' in sample:
-            continue
-        else:
-            sample_name = sample.split("/")[1]
-            execute_java_sample(target_dir, sample_name, full_path, apdfl_key)
+        sample_name = sample.split("/")[1]
+        execute_kotlin_sample(target_dir, sample_name, full_path, apdfl_key)
 
         if platform.system() == "Windows":
             remove_last_path_entry()
