@@ -38,6 +38,10 @@ def build_samples(ctx):
     for sample in samples_list:
         full_path = os.path.join(os.getcwd(), sample)
 
+        if platform.system() == 'Darwin' and ('ConvertToOffice' in sample):
+            print(f'{sample} not available on this OS')
+            continue
+
         with ctx.cd(full_path):
             ctx.run('mvn package')
 
@@ -96,6 +100,10 @@ def run_samples(ctx):
         target_dir = pathlib.Path(full_path, 'target', 'lib')
         if platform.system() == 'Windows':
             os.environ["PATH"] += str(target_dir)
+
+        if platform.system() == 'Darwin' and ('ConvertToOffice' in sample):
+            print(f'{sample} not available on this OS')
+            continue
 
         sample_name = sample.split("/")[0]
         execute_kotlin_sample(target_dir, sample_name, full_path, apdfl_key)
