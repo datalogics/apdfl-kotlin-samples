@@ -61,10 +61,6 @@ def remove_last_path_entry():
 
 
 def execute_kotlin_sample(target_dir, sample_name, full_path, apdfl_key):
-    # DEBUGGING
-    print(f'Sample full path: {full_path}')
-    print(f'Sample name: {sample_name}')
-
     command = str(f'java -Djava.library.path={target_dir} -jar target/{sample_name}-1.0-SNAPSHOT-jar-with-dependencies.jar')
 
     process = subprocess.Popen(command, shell=True, cwd=full_path,
