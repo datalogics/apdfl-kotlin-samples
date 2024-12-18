@@ -101,7 +101,7 @@ def run_samples(ctx):
         if platform.system() == 'Windows':
             os.environ["PATH"] += str(target_dir)
 
-        if platform.system() == 'Darwin' and ('ConvertToOffice' in sample):
+        if platform.system() in ('Darwin', 'Linux') and 'ConvertToOffice' in sample:
             print(f'{sample} not available on this OS')
             continue
 
