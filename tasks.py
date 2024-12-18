@@ -97,7 +97,7 @@ def run_samples(ctx):
         if platform.system() == 'Windows':
             os.environ["PATH"] += str(target_dir)
 
-        sample_name = sample.split("/")[1]
+        sample_name = sample.split("/")[0]
         execute_kotlin_sample(target_dir, sample_name, full_path, apdfl_key)
 
         if platform.system() == "Windows":
