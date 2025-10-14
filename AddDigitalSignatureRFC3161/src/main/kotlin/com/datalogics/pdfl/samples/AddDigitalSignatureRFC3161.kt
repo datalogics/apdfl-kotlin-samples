@@ -33,20 +33,20 @@ fun main(args: Array<String>) {
         val sigDoc = SignDoc()
 
         // Setup Sign params
-        sigDoc.fieldID = SignatureFieldID.SearchForFirstUnsignedField
+        sigDoc.fieldID = SignatureFieldID.SEARCH_FOR_FIRST_UNSIGNED_FIELD
 
         // Set credential related attributes
-        sigDoc.digestCategory = DigestCategory.Sha256
+        sigDoc.digestCategory = DigestCategory.SHA_256
 
         // Set the signature type to be used, RFC3161/TimeStamp.
         // The available types are defined in the SignatureType enum. Default CMS.
-        sigDoc.docSignType = SignatureType.RFC3161
+        sigDoc.docSignType = SignatureType.RFC_3161
 
         // Setup Save params
         sigDoc.outputPath = sOutput
 
         // Finally, sign and save the document
-        sigDoc.AddDigitalSignature(doc)
+        sigDoc.addDigitalSignature(sigDoc)
     } finally {
         lib.delete()
     }

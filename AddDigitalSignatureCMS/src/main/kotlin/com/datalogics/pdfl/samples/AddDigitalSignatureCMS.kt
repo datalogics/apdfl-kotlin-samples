@@ -40,14 +40,14 @@ fun main(args: Array<String>) {
         val sigDoc = SignDoc()
 
         // Setup Sign params
-        sigDoc.fieldID = SignatureFieldID.CreateFieldWithQualifiedName
+        sigDoc.fieldID = SignatureFieldID.CREATE_FIELD_WITH_QUALIFIED_NAME
         sigDoc.fieldName = "Signature_es_:signatureblock"
 
         // Set credential related attributes
-        sigDoc.digestCategory = DigestCategory.Sha256
-        sigDoc.credentialDataFormat = CredentialDataFmt.NonPFX
-        sigDoc.setNonPfxSignerCert(sDERCert, 0, CredentialStorageFmt.OnDisk)
-        sigDoc.setNonPfxPrivateKey(sDERKey, 0, CredentialStorageFmt.OnDisk)
+        sigDoc.digestCategory = DigestCategory.SHA_256
+        sigDoc.credentialDataFormat = CredentialDataFmt.NON_PFX
+        sigDoc.setNonPfxSignerCert(sDERCert, 0, CredentialStorageFmt.ON_DISK)
+        sigDoc.setNonPfxPrivateKey(sDERKey, 0, CredentialStorageFmt.ON_DISK)
 
         // Set the signature type to be used.
         // The available types are defined in the SignatureType enum. Default CMS.
@@ -55,7 +55,7 @@ fun main(args: Array<String>) {
 
         // Setup the signer information
         // (Logo image is optional)
-        sigDoc.setSignerInfo(sLogo, 0.5F, "John Doe", "Chicago, IL", "Approval", "Datalogics, Inc.", DisplayTraits.KDisplayAll)
+        sigDoc.setSignerInfo(sLogo, 0.5F, "John Doe", "Chicago, IL", "Approval", "Datalogics, Inc.", DisplayTraits.KDISPLAY_ALL)
 
         // Set the size and location of the signature box (optional)
         // If not set, invisible signature will be placed on first page
@@ -66,7 +66,7 @@ fun main(args: Array<String>) {
         sigDoc.outputPath = sOutput
 
         // Finally, sign and save the document
-        sigDoc.AddDigitalSignature(doc)
+        sigDoc.addDigitalSignature(sigDoc)
     } finally {
         lib.delete()
     }
