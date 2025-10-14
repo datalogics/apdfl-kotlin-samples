@@ -46,7 +46,7 @@ fun main(args: Array<String>) {
         sigDoc.outputPath = sOutput
 
         // Finally, sign and save the document
-        sigDoc.addDigitalSignature(sigDoc)
+        sigDoc.addDigitalSignature(doc)
     } finally {
         lib.delete()
     }
