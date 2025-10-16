@@ -17,9 +17,7 @@ fun main(args: Array<String>) {
 
     val lib = Library()
     try {
-        val doc = Document()
-
-        var sInput = Library.getResourceDirectory() + "Sample_Input/CreateAcroForm2h.jpg"
+        var sInput = Library.getResourceDirectory() + "Sample_Input/CreateAcroForm2h.pdf"
         var sOutput = "DigSigRFC3161-out.pdf"
 
         if (args.isNotEmpty())
@@ -29,6 +27,8 @@ fun main(args: Array<String>) {
             sOutput = args[1]
 
         println("Applying an RFC3161/TimeStamp digital signature to $sInput and saving it as $sOutput")
+
+        val doc = Document(sInput)
 
         val sigDoc = SignDoc()
 

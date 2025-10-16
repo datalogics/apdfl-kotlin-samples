@@ -17,9 +17,7 @@ fun main(args: Array<String>) {
 
     val lib = Library()
     try {
-        val doc = Document()
-
-        var sInput = Library.getResourceDirectory() + "Sample_Input/SixPages.jpg"
+        var sInput = Library.getResourceDirectory() + "Sample_Input/SixPages.pdf"
         val sLogo = Library.getResourceDirectory() + "Sample_Input/ducky_alpha.tif"
         var sOutput = "DigSigCMS-out.pdf"
 
@@ -36,6 +34,8 @@ fun main(args: Array<String>) {
             sOutput = args[2]
 
         println("Applying a CMS digital signature to $sInput with a logo $sLogo and saving it as $sOutput")
+
+        val doc = Document(sInput)
 
         val sigDoc = SignDoc()
 
