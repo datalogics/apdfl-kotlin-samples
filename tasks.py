@@ -6,6 +6,7 @@ import pathlib
 import subprocess
 
 samples_list = [
+                'AddBasicPAdESElectronicSignature/',
                 'AddDigitalSignatureCMS/',
                 'AddDigitalSignatureRFC3161/',
                 'ConvertToOffice/',
