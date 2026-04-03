@@ -7,6 +7,7 @@ import subprocess
 
 samples_list = [
                 'AddBasicPAdESElectronicSignature/',
+                'AddPAdESPolicySignature/',
                 'AddDigitalSignatureCMS/',
                 'AddDigitalSignatureRFC3161/',
                 'ConvertToOffice/',
