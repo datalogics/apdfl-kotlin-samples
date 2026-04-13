@@ -14,7 +14,7 @@ pipeline {
     agent none
     triggers {
         // The job will be triggered only for the develop branch at midnight every day.
-        parameterizedCron(env.BRANCH_NAME == "develop" ? "0 0 * * *" : "")
+        parameterizedCron(env.BRANCH_NAME == "develop" ? "0 8 * * *" : "")
     }
     stages {
         stage('Matrix stage') {
