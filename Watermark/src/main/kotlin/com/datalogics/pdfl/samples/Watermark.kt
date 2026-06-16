@@ -10,7 +10,7 @@ import java.util.*
  * a set of photographs shown in a PDF file so that they cannot be easily duplicated without
  * the permission of the owner.
  *
- * Copyright (c) 2024, Datalogics, Inc. All rights reserved.
+ * Copyright (c) 2026, Datalogics, Inc. All rights reserved.
  *
  */
 

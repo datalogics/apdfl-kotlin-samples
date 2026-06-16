@@ -6,7 +6,7 @@ import java.util.*
 /*
 * This program opens a PDF input document and exports the pages to a set of separate PDF documents.
 *
-* Copyright (c) 2024, Datalogics, Inc. All rights reserved.
+* Copyright (c) 2026, Datalogics, Inc. All rights reserved.
 */
 
 fun main(args: Array<String>) {

@@ -6,7 +6,7 @@ import com.datalogics.PDFL.*
  *
  * This program lists the text for the words in a PDF document along with text location, style, and attributes.
  *
- * Copyright (c) 2024, Datalogics, Inc. All rights reserved.
+ * Copyright (c) 2026, Datalogics, Inc. All rights reserved.
  *
  */
 

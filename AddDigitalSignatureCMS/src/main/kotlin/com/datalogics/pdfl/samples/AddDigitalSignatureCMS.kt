@@ -8,7 +8,7 @@ import java.io.OutputStreamWriter
  *
  * This sample program demonstrates the use of AddDigitalSignature for CMS signature type.
  *
- * Copyright (c) 2025, Datalogics, Inc. All rights reserved.
+ * Copyright (c) 2026, Datalogics, Inc. All rights reserved.
  *
  */
 

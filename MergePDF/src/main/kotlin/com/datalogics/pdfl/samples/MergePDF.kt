@@ -10,7 +10,7 @@ import java.util.EnumSet
  * takes the content from the second PDF input document and inserts it in the first
  * input document, and saves the result to the output PDF document.
  *
- * Copyright (c) 2024, Datalogics, Inc. All rights reserved.
+ * Copyright (c) 2026, Datalogics, Inc. All rights reserved.
  *
  */
 fun main(args: Array<String>) {

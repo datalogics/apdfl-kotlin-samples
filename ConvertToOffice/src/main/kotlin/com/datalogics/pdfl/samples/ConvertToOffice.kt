@@ -10,7 +10,7 @@ import com.datalogics.PDFL.Library
  * Please note that the Office conversion APIs convertToWord, convertToExcel, and convertToPowerPoint are available on
  * Windows 32/64-bit and Linux 64-bit only.
  *
- * Copyright (c) 2024, Datalogics, Inc. All rights reserved.
+ * Copyright (c) 2026, Datalogics, Inc. All rights reserved.
  *
  */
 class ConvertToOffice {

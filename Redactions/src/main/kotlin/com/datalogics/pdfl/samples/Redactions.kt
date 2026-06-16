@@ -7,7 +7,7 @@ import java.util.*
  * This sample shows how to redact a PDF document. The program opens an input PDF, searches for
  * specific words using the WordFinder, and then removes these words from the text.
  *
- * Copyright (c) 2024, Datalogics, Inc. All rights reserved.
+ * Copyright (c) 2026, Datalogics, Inc. All rights reserved.
  *
  */
 fun main(args: Array<String>) {

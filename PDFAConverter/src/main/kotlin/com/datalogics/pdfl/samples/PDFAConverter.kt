@@ -7,7 +7,7 @@ import com.datalogics.PDFL.*
  * This program demonstrates converting a standard PDF document into a
  * PDF Archive, or PDF/A, compliant version of a PDF file.
  *
- * Copyright (c) 2024, Datalogics, Inc. All rights reserved.
+ * Copyright (c) 2026, Datalogics, Inc. All rights reserved.
  *
  */
 

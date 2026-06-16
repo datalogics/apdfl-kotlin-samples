@@ -2,7 +2,7 @@
 def ENV_LOC=[:]
 pipeline {
     parameters {
-        choice(name: 'PLATFORM_FILTER', choices: ['all', 'windows-kotlin-samples', 'mac-arm-kotlin-samples', 'linux-kotlin-samples'], description: 'Run on specific platform')
+        choice(name: 'PLATFORM_FILTER', choices: ['all', 'windows-kotlin-21-samples', 'windows-arm-kotlin-21-samples', 'mac-arm-kotlin-21-samples', 'rocky9-kotlin-21-samples', 'rocky9-arm-kotlin-21-samples'], description: 'Run on specific platform')
         booleanParam defaultValue: false, description: 'Completely clean the workspace before building, including the Conan cache', name: 'CLEAN_WORKSPACE'
         booleanParam defaultValue: false, description: 'Run clean-samples', name: 'DISTCLEAN'
     }
@@ -14,7 +14,7 @@ pipeline {
     agent none
     triggers {
         // The job will be triggered only for the develop branch at midnight every day.
-        parameterizedCron(env.BRANCH_NAME == "develop-18" ? "0 8 * * *" : "")
+        parameterizedCron(env.BRANCH_NAME == "develop-21" ? "0 8 * * *" : "")
     }
     stages {
         stage('Matrix stage') {
@@ -29,13 +29,14 @@ pipeline {
                 axes {
                     axis {
                         name 'NODE'
-                        values 'windows-kotlin-samples', 'mac-arm-kotlin-samples', 'linux-kotlin-samples'
+                        values 'windows-kotlin-21-samples', 'windows-arm-kotlin-21-samples', 'mac-arm-kotlin-21-samples', 'rocky9-kotlin-21-samples', 'rocky9-arm-kotlin-21-samples'
                     }
                 }
                 environment {
                     CONAN_USER_HOME = "${WORKSPACE}"
                     CONAN_NON_INTERACTIVE = '1'
                     CONAN_PRINT_RUN_COMMANDS = '1'
+                    APDFL_KEY = credentials('apdfl-rlm-key')
                 }
                 stages {
                     stage('Axis'){

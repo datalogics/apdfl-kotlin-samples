@@ -13,7 +13,7 @@ import java.io.File
  * to suit your applications needs and drop such content to achieve better compression if you already
  * know it's unnecessary.
  *
- * Copyright (c) 2024, Datalogics, Inc. All rights reserved.
+ * Copyright (c) 2026, Datalogics, Inc. All rights reserved.
  *
  */
 

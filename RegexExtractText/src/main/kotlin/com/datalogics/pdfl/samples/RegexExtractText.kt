@@ -11,7 +11,7 @@ import java.io.FileWriter
  * that matches a user-supplied regular expression. The output is a JSON file that
  * has the match information.
  *
- * Copyright (c) 2024, Datalogics, Inc. All rights reserved.
+ * Copyright (c) 2026, Datalogics, Inc. All rights reserved.
  *
  */
 
