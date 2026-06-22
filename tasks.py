@@ -106,8 +106,13 @@ def run_samples(ctx):
         if platform.system() == 'Windows':
             os.environ["PATH"] += str(target_dir)
 
-        if platform.system() in ('Darwin', 'Linux') and 'ConvertToOffice' in sample:
-            print(f'{sample} not available on this OS')
+        # Office conversion isn't available on macOS, Linux, or Windows ARM64 --
+        # PDFToOffice is only built for Windows x64 and Linux x64, so on the
+        # others ConvertToOffice throws "not implemented on this platform" at runtime.
+        is_windows_arm = (platform.system() == 'Windows'
+                          and platform.machine().upper() in ('ARM64', 'AARCH64'))
+        if (platform.system() in ('Darwin', 'Linux') or is_windows_arm) and 'ConvertToOffice' in sample:
+            print(f'{sample} not available on this platform')
             continue
 
         sample_name = sample.split("/")[0]
