@@ -87,14 +87,16 @@ pipeline {
                                         returnStdout: true
                                     ).trim()
                                 } else {
-                                    // Using the mkenv.py script like this assumes the Python Launcher is
-                                    // installed on the Windows host.
-                                    // https://docs.python.org/3/using/windows.html#launcher
-                                    bat '.\\mkenv.py --verbose'
+                                    // Invoke through the Python Launcher (py) explicitly rather than
+                                    // relying on the .py file association, which on some Windows hosts
+                                    // (e.g. the Windows ARM node) does not forward arguments (%*).
+                                    // Without the argument, mkenv.py runs a full environment setup and
+                                    // prints pip output, corrupting the venv path captured below.
+                                    bat 'py mkenv.py --verbose'
                                     ENV_LOC[NODE] = bat (
                                         // The @ prevents Windows from echoing the command itself into the stdout,
                                         // which would corrupt the value of the returned data.
-                                        script: '@.\\mkenv.py --env-name',
+                                        script: '@py mkenv.py --env-name',
                                         returnStdout: true
                                     ).trim()
                                 }
