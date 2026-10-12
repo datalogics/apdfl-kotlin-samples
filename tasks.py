@@ -11,6 +11,7 @@ samples_list = [
                 'AddDigitalSignatureCMS/',
                 'AddDigitalSignatureRFC3161/',
                 'ConvertToOffice/',
+                'ConvertWordToPDF/',
                 'FlattenTransparency/',
                 'ListWords/',
                 'MergePDF/',
@@ -24,6 +25,19 @@ samples_list = [
                 'TextExtract',
                 'Watermark/'
         ]
+
+
+def office_to_pdf_unavailable(sample):
+    # The OfficeToPDF plugin ships for Windows x64, Linux x64 and ARM64, and
+    # macOS on Apple silicon; not for macOS x64 or Windows ARM64.
+    if 'ConvertWordToPDF' not in sample:
+        return False
+    machine = platform.machine().upper()
+    if platform.system() == 'Darwin':
+        return machine not in ('ARM64', 'AARCH64')
+    if platform.system() == 'Windows':
+        return machine in ('ARM64', 'AARCH64')
+    return False
 
 
 @task()
@@ -44,6 +58,10 @@ def build_samples(ctx):
 
         if platform.system() == 'Darwin' and ('ConvertToOffice' in sample):
             print(f'{sample} not available on this OS')
+            continue
+
+        if office_to_pdf_unavailable(sample):
+            print(f'{sample} not available on this platform')
             continue
 
         with ctx.cd(full_path):
@@ -96,6 +114,10 @@ def run_samples(ctx):
         raise ValueError("APDFL_KEY environment variable not set.")
 
     for sample in samples_list:
+        if office_to_pdf_unavailable(sample):
+            print(f'{sample} not available on this platform')
+            continue
+
         if platform.system() == "Windows":
             os.environ["PATH"] += ";"
 
