@@ -257,4 +257,20 @@ pipeline {
             }
         }
     }
+    post {
+        success {
+            script {
+                // Ask the central gatekeeper to review passing PRs without affecting this build.
+                if (env.CHANGE_ID) {
+                    try {
+                        build job: '/pr-gatekeeper', wait: false,
+                              parameters: [string(name: 'REPO', value: 'datalogics/apdfl-kotlin-samples'),
+                                           string(name: 'PR', value: env.CHANGE_ID)]
+                    } catch (err) {
+                        echo "Could not start the PR gatekeeper: ${err}"
+                    }
+                }
+            }
+        }
+    }
 }

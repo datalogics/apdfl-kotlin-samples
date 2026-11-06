@@ -1,0 +1,9 @@
+# Settings are read from the PR target branch by dl-pr-classify.
+# Require passing Jenkins CI, low-risk classification, and an approving agent review.
+cutoff: 0.5
+automerge: true
+
+# Additional build, packaging, and infrastructure files that need human review.
+# These extend the gatekeeper built-ins, including Jenkinsfiles and this policy.
+protected_paths:
+  - ".gitattributes"
